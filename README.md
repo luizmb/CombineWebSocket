@@ -10,7 +10,7 @@ Unfortunately, up to now Apple didn't implement Combine wrappers for `URLSession
 
 This first implementation uses the `WebSocketSubscription` to keep the subscription alive and also to send messages or start pinging. Probably it would be better to create a dedicated class for that with multiple publishers for messages and also connectivity delegates, but for now let's start simple and make this thing a bit useful.
 
-```
+```swift
 let urlRequest = makeURLRequest()
 let webSocket = WebSocketPublisher(request: urlRequest, session: URLSession.shared)
     .start(
@@ -26,12 +26,15 @@ webSocket.send("Send and check for errors").sink(
     receivedCompletion: { result in
         print("Sending result: \(result)")
     },
-    receivedValue: { _ in },
+    receivedValue: { _ in }
 )
 
 webSocket.send(Data())
 
 webSocket.ping()
 
-webSocket.startPinging(every: 5)
+let cancellable = webSocket.startPinging(every: 5).sink(
+    receivedCompletion: { _ in },
+    receivedValue: { _ in }
+)
 ```

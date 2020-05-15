@@ -1,10 +1,3 @@
-//
-//  WebSocketSubscription.swift
-//  
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 09.11.19.
-//
-
 import Combine
 import Foundation
 

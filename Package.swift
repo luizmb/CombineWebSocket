@@ -9,7 +9,8 @@ let package = Package(
         .iOS(.v13), .tvOS(.v13), .macOS(.v10_15), .watchOS(.v6)
     ],
     products: [
-        .library(name: "CombineWebSocket", type: .dynamic, targets: ["CombineWebSocket"])
+        .library(name: "CombineWebSocket", targets: ["CombineWebSocket"]),
+        .library(name: "CombineWebSocketDynamic", type: .dynamic, targets: ["CombineWebSocket"])
     ],
     dependencies: [],
     targets: [

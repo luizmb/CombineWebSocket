@@ -12,26 +12,32 @@ public class WebSocket {
         task.publisher
     }
 
-    public func send(_ string: String) -> Future<Void, Error> {
-        Future { completion in
-            self.task.send(.string(string)) { maybeError in
-                completion(maybeError.map(Result.failure) ?? .success(()))
+    public func send(_ string: String) -> Deferred<Future<Void, Error>> {
+        Deferred {
+            Future { completion in
+                self.task.send(.string(string)) { maybeError in
+                    completion(maybeError.map(Result.failure) ?? .success(()))
+                }
             }
         }
     }
 
-    public func send(_ data: Data) -> Future<Void, Error> {
-        Future { completion in
-            self.task.send(.data(data)) { maybeError in
-                completion(maybeError.map(Result.failure) ?? .success(()))
+    public func send(_ data: Data) -> Deferred<Future<Void, Error>> {
+        Deferred {
+            Future { completion in
+                self.task.send(.data(data)) { maybeError in
+                    completion(maybeError.map(Result.failure) ?? .success(()))
+                }
             }
         }
     }
 
-    public func ping() -> Future<Void, Error> {
-        Future { completion in
-            self.task.sendPing { maybeError in
-                completion(maybeError.map(Result.failure) ?? .success(()))
+    public func ping() -> Deferred<Future<Void, Error>> {
+        Deferred {
+            Future { completion in
+                self.task.sendPing { maybeError in
+                    completion(maybeError.map(Result.failure) ?? .success(()))
+                }
             }
         }
     }
